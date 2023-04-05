@@ -13,6 +13,7 @@ async function dev() {
     zones.forEach(async (zone: any) => {
         const dnsRecords = await getDnsRecords(zone.id);
         console.log(`\n----------\nZone: ${zone.name}`);
+        console.log(`Zone ID: ${zone.id}`);
         console.log(`----------`);
         dnsRecords.forEach(async (dnsRecord: any) => {
             console.log(`DNS Record: ${dnsRecord.name}`);

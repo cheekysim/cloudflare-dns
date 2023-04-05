@@ -7,6 +7,6 @@ services:
     restart: unless-stopped
     environment:
       - ZONE=${ZONE}
-      - DNS=${DNS}
+      - RECORD=${RECORD}
       - TOKEN=${TOKEN}
       - DEV=${DEV}
