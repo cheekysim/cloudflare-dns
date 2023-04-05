@@ -41,7 +41,7 @@ config();
 if (process.env.NODE_ENV === "dev") {
     dev();
 } else {
-    nodeCron.schedule("* * * * *", main);
+    nodeCron.schedule("0 * * * *", main);
 }
 // Main Function
 async function main() {

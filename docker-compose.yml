@@ -9,4 +9,4 @@ services:
       - ZONE=${ZONE}
       - RECORD=${RECORD}
       - TOKEN=${TOKEN}
-      - DEV=${DEV}
+      - NODE_ENV=${NODE_ENV}
