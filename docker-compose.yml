@@ -1,7 +1,7 @@
 version: '3'
 services:
-  cloudflareddns:
-    container_name: cloudflareddns
+  cloudflaredns:
+    container_name: cloudflaredns
     pull_policy: build
     build: .
     restart: unless-stopped
