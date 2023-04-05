@@ -1,14 +1,18 @@
 // Imports
 import axios from "axios";
 import nodeCron from "node-cron";
+import { dev } from "./dns.js"
 import { config } from "dotenv";
 
 // Load .env file
 config();
 
 // Call Main Function
-nodeCron.schedule("0 * * * *", main);
-
+if (process.env.NODE_ENV === "dev") {
+    dev();
+} else {
+    nodeCron.schedule("0 * * * *", main);
+}
 // Main Function
 async function main() {
     const time = new Date().toLocaleTimeString();
