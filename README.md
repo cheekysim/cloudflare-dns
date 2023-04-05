@@ -2,7 +2,7 @@
 This is a simple program to keep your cloudflare ip up to date with your public ip
 Since cloudflare does not support dynamic ips, this is a workaround
 
-This is meant to be used with portainer and deployed as a repository stack.
+This is meant to be used with portainer and deployed as a repository stack
 https://www.portainer.io/
 
 # Config
