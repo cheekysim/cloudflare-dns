@@ -41,6 +41,15 @@ config();
 if (process.env.NODE_ENV === "dev") {
     dev();
 } else {
+    if (!process.env.TOKEN) {
+        throw new Error("TOKEN is not set.");
+    }
+    if (!process.env.ZONE) {
+        throw new Error("ZONE is not set.");
+    }
+    if (!process.env.RECORD) {
+        throw new Error("RECORD is not set.");
+    }
     nodeCron.schedule("0 * * * *", main);
 }
 // Main Function
