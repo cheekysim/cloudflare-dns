@@ -1,0 +1,11 @@
+version: '3'
+services:
+  cloudflareddns:
+    container_name: cloudflareddns
+    pull_policy: build
+    build: .
+    restart: unless-stopped
+    environment:
+      - ZONE=${ZONE}
+      - DNS=${DNS}
+      - TOKEN=${TOKEN}
