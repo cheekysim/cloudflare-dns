@@ -10,10 +10,11 @@ The program is easy to configure, it just uses a few environment variables
 These can easily be added when running the stack
 
 ## Environment Variables
+```env
 ZONE=Id of the zone to use
 RECORD=Id of the record
 TOKEN=API Token
-
+```
 ## Get API Token
 https://dash.cloudflare.com/profile/api-tokens
 1. Create Token
@@ -24,11 +25,14 @@ https://dash.cloudflare.com/profile/api-tokens
 
 ## Get Zone and Record
 Run the program with the environment variable
+```env
 NODE_ENV=dev
-This will then log all of the zones and records per zone,
+```
+This will then log all of the zones and records per zone,<br>
 This provides you with the Zone and Record ID
 
 Put these as the environment variables then remove
+```env
 NODE_ENV=dev
-
+```
 All should run well
