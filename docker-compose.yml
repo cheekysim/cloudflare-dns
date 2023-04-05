@@ -9,3 +9,4 @@ services:
       - ZONE=${ZONE}
       - DNS=${DNS}
       - TOKEN=${TOKEN}
+      - DEV=${DEV}
