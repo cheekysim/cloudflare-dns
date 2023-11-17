@@ -24,15 +24,6 @@ https://dash.cloudflare.com/profile/api-tokens
 5. Create Token
 
 ## Get Zone and Record
-Run the program with the environment variable
-```env
-NODE_ENV=dev
-```
-This will then log all of the zones and records per zone,<br>
-This provides you with the Zone and Record ID
+Zone can be found in the API Section of the Domains' Overview Page
 
-Put these as the environment variables then remove
-```env
-NODE_ENV=dev
-```
-All should run well
+Program will show you all Records if one isnt provided. Set RECORD env to the correct id.
