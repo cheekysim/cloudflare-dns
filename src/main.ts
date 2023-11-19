@@ -6,23 +6,26 @@ export async function main() {
     const time = new Date().toLocaleTimeString();
     console.log(`\n----------\nRunning at ${time}`);
     const publicIp = await getPublicIp();
-    const cloudflareDnsIp = await getCloudflareDnsIp();
-    const dnsRecord = await getDnsRecord(process.env.ZONE, process.env.RECORD);
-    console.log(`Public IP: ${publicIp}`);
-    console.log(`Cloudflare DNS IP: ${cloudflareDnsIp}`);
-    if (publicIp === cloudflareDnsIp) {
-        console.log("Public IP and Cloudflare DNS IP are the same.");
-    } else {
-        console.log("Public IP and Cloudflare DNS IP are different.");
-        const data = {
-            content: publicIp,
-            name: dnsRecord.name,
-            proxied: dnsRecord.proxied,
-            type: dnsRecord.type,
-        };
-        const updatedCloudflareDnsIp = await updateCloudflareDnsIp(data);
-        console.log(`Cloudflare DNS IP updated to: ${updatedCloudflareDnsIp}`);
-    }
+
+    (process.env.RECORDS).split(",").forEach(async (record) => {
+        record = record.trim();
+
+        const cloudflareDnsIp = await getCloudflareDnsIp(record);
+        const dnsRecord = await getDnsRecord(process.env.ZONE, record);
+        console.log(`Public IP: ${publicIp}`);
+        console.log(`Cloudflare DNS IP: ${cloudflareDnsIp}`);
+        if (publicIp === cloudflareDnsIp) {
+            console.log("Public IP and Cloudflare DNS IP are the same.");
+        } else {
+            console.log("Public IP and Cloudflare DNS IP are different.");
+            const data = {
+                ...dnsRecord,
+                content: publicIp
+            };
+            const updatedCloudflareDnsIp = await updateCloudflareDnsIp(record, data);
+            console.log(`Cloudflare DNS IP updated to: ${updatedCloudflareDnsIp}`);
+        }
+    });
 }
 // Fetch public ip
 
@@ -32,10 +35,10 @@ async function getPublicIp(): Promise<string> {
 }
 // Get cloudflare dns ip
 
-async function getCloudflareDnsIp(): Promise<string> {
+async function getCloudflareDnsIp(recordId: string): Promise<string> {
     const options = {
         method: "GET",
-        url: `https://api.cloudflare.com/client/v4/zones/${process.env.ZONE}/dns_records/${process.env.RECORD}`,
+        url: `https://api.cloudflare.com/client/v4/zones/${process.env.ZONE}/dns_records/${recordId}`,
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.TOKEN}`,
@@ -46,15 +49,15 @@ async function getCloudflareDnsIp(): Promise<string> {
 }
 // Update cloudflare dns ip
 
-async function updateCloudflareDnsIp(Options: updateOptions): Promise<string> {
+async function updateCloudflareDnsIp(recordId: string, DNSOptions: updateOptions): Promise<string> {
     const options = {
         method: "PUT",
-        url: `https://api.cloudflare.com/client/v4/zones/${process.env.ZONE}/dns_records/${process.env.RECORD}`,
+        url: `https://api.cloudflare.com/client/v4/zones/${process.env.ZONE}/dns_records/${recordId}`,
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.TOKEN}`,
         },
-        data: Options,
+        data: DNSOptions,
     };
     const { data } = await axios.request(options);
     return data.result.content;

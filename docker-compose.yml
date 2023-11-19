@@ -7,5 +7,5 @@ services:
     restart: unless-stopped
     environment:
       - ZONE=${ZONE}
-      - RECORD=${RECORD}
+      - RECORDS=${RECORD}
       - TOKEN=${TOKEN}

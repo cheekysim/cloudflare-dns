@@ -2,7 +2,7 @@
 import nodeCron from "node-cron";
 import { config } from "dotenv";
 import { main } from "./main.js";
-import { checkToken, checkZone, checkRecord, getDnsRecords } from "./checks.js";
+import { checkToken, checkZone, checkRecords, getDnsRecords } from "./checks.js";
 
 // Interfaces
 export interface DnsRecord {
@@ -48,7 +48,7 @@ async function setup() {
         throw new Error(
             "Zone is not set or is wrong.\nZone can be found in the API Section of the Domains' Overview Page"
         );
-    } else if (!process.env.RECORD || (await checkRecord()) === false) {
+    } else if (!process.env.RECORDS || (await checkRecords()) === false) {
         console.log(
             "Record is not set or is wrong.\nHere are all current records: "
         );
