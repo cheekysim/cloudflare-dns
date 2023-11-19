@@ -12,7 +12,7 @@ These can easily be added when running the stack
 ## Environment Variables
 ```env
 ZONE=Id of the zone to use
-RECORD=Id of the record
+RECORDS=IDs of the record separated with a comma
 TOKEN=API Token
 ```
 ## Get API Token
@@ -26,4 +26,4 @@ https://dash.cloudflare.com/profile/api-tokens
 ## Get Zone and Record
 Zone can be found in the API Section of the Domains' Overview Page
 
-Program will show you all Records if one isnt provided. Set RECORD env to the correct id.
+Program will show you all Records if one isn't provided. Set RECORDS env to the correct ID.
