@@ -2,7 +2,12 @@
 import nodeCron from "node-cron";
 import { config } from "dotenv";
 import { main } from "./main.js";
-import { checkToken, checkZone, checkRecords, getDnsRecords } from "./checks.js";
+import {
+    checkToken,
+    checkZone,
+    checkRecords,
+    getDnsRecords,
+} from "./checks.js";
 
 // Interfaces
 export interface DnsRecord {
@@ -50,18 +55,18 @@ async function setup() {
         );
     } else if (!process.env.RECORDS || (await checkRecords()) === false) {
         console.log(
-            "Record is not set or is wrong.\nHere are all current records: "
+            "Record is not set or is wrong.\nHere are all current A records: "
         );
-        const records = (await getDnsRecords(process.env.ZONE)).map(
-            (record: DnsRecord) => {
+        const records = (await getDnsRecords(process.env.ZONE))
+            .map((record: DnsRecord) => {
                 return {
                     id: record.id,
                     name: record.name,
                     type: record.type,
                     content: record.content,
                 };
-            }
-        );
+            })
+            .filter((record: DnsRecord) => record.type === "A");
         console.log(records);
         console.log("Please set RECORD env to the correct Record ID");
     } else {
