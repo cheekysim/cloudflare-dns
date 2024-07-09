@@ -9,3 +9,4 @@ services:
       - ZONE=${ZONE}
       - RECORDS=${RECORDS}
       - TOKEN=${TOKEN}
+      - CRON_SCHEDULE=${CRON_SCHEDULE}
