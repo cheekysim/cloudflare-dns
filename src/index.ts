@@ -71,6 +71,6 @@ async function setup() {
         console.log("Please set RECORD env to the correct Record ID");
     } else {
         main();
-        nodeCron.schedule("0 * * * *", main);
+        nodeCron.schedule(process.env.CRON_SCHEDULE || "0 * * * *", main);
     }
 }
