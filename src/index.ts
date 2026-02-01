@@ -2,6 +2,7 @@
 import nodeCron from "node-cron";
 import { config } from "dotenv";
 import { main } from "./main.js";
+import fs from "fs";
 import {
     checkToken,
     checkZone,
@@ -45,6 +46,27 @@ setup();
 
 // Start Script
 async function setup() {
+    // Check for HASSIO config.json
+    const hassioConfigPath = "/data/options.json";
+
+    if (fs.existsSync(hassioConfigPath)) {
+        const rawData = fs.readFileSync(hassioConfigPath, "utf-8");
+        const config = JSON.parse(rawData);
+        
+        console.log("Hassio Config Found - Using This as Default")
+
+        process.env.TOKEN = config.token;
+        process.env.ZONE = config.zone;
+        process.env.RECORDS = config.records;
+        process.env.CRON_SCHEDULE = config.schedule ?? '0 * * * *';
+    }
+
+    if (!process.env.TOKEN || !process.env.ZONE || !process.env.RECORDS) {
+        console.error(
+            "Error: TOKEN, ZONE, and RECORDS environment variables must be set."
+        );
+        return;
+    }
     if (!process.env.TOKEN || (await checkToken()) === false) {
         throw new Error(
             "Token is not set or is wrong.\nPlease generate one | https://dash.cloudflare.com/profile/api-tokens |"

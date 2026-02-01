@@ -14,6 +14,7 @@ These can easily be added when running the stack
 ZONE=Id of the zone to use
 RECORDS=IDs of the record separated with a comma
 TOKEN=API Token
+CRON_SCHEDULE=Schedule to check IP - "0 * * * *" by default (Every hour)
 ```
 ## Get API Token
 https://dash.cloudflare.com/profile/api-tokens
